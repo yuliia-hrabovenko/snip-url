@@ -7,12 +7,13 @@ cached redirects, and an in-memory layer to protect the backend from excessive t
 
 This is a Gradle multi-project build with four modules:
 
-| Module | What it is | Depends on |
-|---|---|---|
-| [`url-service`](url-service) | Spring Boot app serving the shorten/redirect HTTP API | `common-events` |
-| [`analytics-service`](analytics-service) | Spring Boot app consuming click events off Kafka and updating click counts | `common-events` |
-| [`common-events`](common-events) | Plain Java library holding the Kafka event contract (`ClickEvent`) shared by the two services above | — |
-| [`frontend`](frontend) | React + Vite UI for creating short links | — |
+- **[`url-service`](url-service)** – Spring Boot service that exposes the REST API for creating and resolving short URLs.
+
+- **[`analytics-service`](analytics-service)** – Spring Boot service that consumes click events from Kafka and updates URL click statistics.
+
+- **[`common-events`](common-events)** – Shared Java library containing the Kafka event model (for example, `ClickEvent`) used by both backend services.
+
+- **[`frontend`](frontend)** – React + Vite web application for creating and managing short URLs.
 
 `url-service` and `analytics-service` communicate only through Kafka (the `click-metrics`
 topic, typed by `common-events`' `ClickEvent`) and by both reading/writing MongoDB's
