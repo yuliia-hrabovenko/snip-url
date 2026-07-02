@@ -1,0 +1,3 @@
+rootProject.name = 'url-shortener'
+
+include 'common-events', 'url-service', 'analytics-service'

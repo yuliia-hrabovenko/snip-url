@@ -1,0 +1,28 @@
+package com.shortener.urlservice.config;
+
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+import org.springframework.web.filter.OncePerRequestFilter;
+
+import java.io.IOException;
+
+@Component
+public class NodeIdResponseHeaderFilter extends OncePerRequestFilter {
+
+    private final String nodeId;
+
+    public NodeIdResponseHeaderFilter(@Value("${node.id}") String nodeId) {
+        this.nodeId = nodeId;
+    }
+
+    @Override
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+            throws ServletException, IOException {
+        response.setHeader("X-Node-Id", nodeId);
+        filterChain.doFilter(request, response);
+    }
+}

@@ -1,0 +1,8 @@
+frontend/
+mongo/
+**/build/
+.gradle/
+.idea/
+*.iml
+.git/
+HELP.md
